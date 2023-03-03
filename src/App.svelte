@@ -266,7 +266,7 @@
   @media only screen and (max-width: 768px) {
     .wrap{
       width: 100%;
-      padding: 40px 15px;
+      padding: 40px 20px;
       margin-top: 0;
       margin-bottom: 0;
     }
