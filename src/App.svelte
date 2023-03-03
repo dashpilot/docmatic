@@ -266,7 +266,8 @@
   @media only screen and (max-width: 768px) {
     .wrap{
       padding: 15px;
-      margin: 0;
+      margin-top: 0;
+      margin-bottom: 0;
     }
     
     .mob-hide{
