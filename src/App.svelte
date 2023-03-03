@@ -2,18 +2,15 @@
   import { onMount, tick } from 'svelte';
   import Sortable from "svelte-sortable"
   
-  /*
-  import EditorJS from '@editorjs/editorjs';
-  import Header from '@editorjs/header'; 
-  import Link from '@editorjs/link'; 
-  import List from '@editorjs/list'; 
-  import SimpleImage from '@editorjs/simple-image'; 
-  import Embed from '@editorjs/embed'; 
-  */
+  import Userbase from "./lib/Userbase.svelte"
+  let showModal = false;
   
   let editor;
   let handle = ".handle"
   let darkmode = true;
+  
+  let mode = 'signup';
+  let user = false;
   
   let items = [
     {
@@ -34,30 +31,24 @@
   ];
 
   onMount(async () => {
-    
-    /*
-    editor = new EditorJS({
-      holder: 'editorjs',
-      tools: {
-        header: Header,
-        link: Link,
-        list: {
-          class: List,
-          inlineToolbar: true,
-          config: {
-            defaultStyle: "unordered",
-          },
-        },        
-        image: SimpleImage,
-        embed: Embed,
-      },
-      autofocus: true,
-      readonly: true,
-    });
-    */
+  
   init();
+  
+    userbase.init({ appId: '896a0bf8-bab5-4325-93f0-566423bf201c' })
+    .then((session) => {
+      console.log(session.user)
+      user = session.user;
+    })
+    .catch(() => user = false)
    
   });
+  
+  function signOut(){
+    
+    userbase.signOut()
+      .then(() => user = false)
+      .catch((e) => alert(e))
+  }
   
   async function init(){
     await tick();
@@ -95,19 +86,20 @@
       //`items` are mutated
       console.log(items)
   }
+  
+  function account(mymode){
+    mode = mymode;
+    showModal=true;
+  }
+  
+  function save(){
+    alert('coming soon')
+  }
 </script>
 
 <nav>
 <div class="row">
-  <div class="col-3">
-    <img src="img/docmatic.png" id="logo" />
-  </div>
-
-
-  <div class="col-9 text-end">
-    
- 
-    
+  <div class="col-5">
     <span class="dropdown">
       <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
         Style
@@ -120,7 +112,23 @@
         
       </ul>
     </span>
-    <button class="btn btn-outline-dark">Save</button>
+  </div>
+<div class="col-2 text-center">
+<img src="img/docmatic.png" id="logo" />
+</div>
+
+  <div class="col-5 text-end">
+    
+ 
+    {#if !user}
+
+  
+    <button class="btn btn-outline-dark" on:click={()=>account('signin')}>Sign In</button>
+
+    {:else}
+    <button class="btn btn-outline-dark" on:click={save}>Save</button>
+    <button class="btn btn-outline-dark" on:click={signOut}><i class="fas fa-sign-out"></i></button>
+    {/if}
   </div>
 </div>
 </nav>
@@ -130,7 +138,7 @@
 
   <Sortable {items}
   let:item={item}
-  on:change={onChange} bind:handle={handle}>
+  on:change={onChange}>
   
   <div class="item">
     <div class="row">
@@ -169,6 +177,10 @@
 
 
 </div>
+
+{#if showModal}
+<Userbase bind:showModal bind:mode bind:user />
+{/if}
 
 
 <style>
@@ -237,11 +249,7 @@
       margin-bottom: 0;
   }
   
-  .btn-outline-dark{
-    border: 2px solid black;
-    font-weight: 600;
-  }
-  
+ 
   .margin{
     height: 0px;
   }
