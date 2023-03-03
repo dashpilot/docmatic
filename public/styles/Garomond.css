@@ -1,0 +1,20 @@
+.title,
+.subtitle {
+  color: #000;
+  font-family: adobe-garamond-pro, Adobe Garamond Pro, garamond, Times, serif;
+  font-size: 35px;
+  font-weight: 400;
+  line-height: 44px;
+  letter-spacing: 0.11em;
+}
+
+.subtitle {
+  font-size: 27px;
+  line-height: 1.5em;
+}
+
+.paragraph {
+  font-family: adobe-garamond-pro, Adobe Garamond Pro, garamond, Times, serif;
+  font-size: 20px;
+  line-height: 1.5em;
+}
