@@ -263,7 +263,7 @@
     color: white;
   }
   
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 768px) {
     .wrap{
       padding: 15px;
       margin: 0;
