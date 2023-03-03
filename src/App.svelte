@@ -172,7 +172,7 @@
 <style>
  .wrap{
     margin: 0 auto;
-    max-width: 700px;
+    max-width: 768px;
     min-height: 800px;
     padding: 40px;
     border: 1px solid black;
@@ -265,6 +265,7 @@
   
   @media only screen and (max-width: 768px) {
     .wrap{
+      width: 100%;
       padding: 15px;
       margin-top: 0;
       margin-bottom: 0;
