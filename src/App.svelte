@@ -269,7 +269,6 @@
       padding: 40px 15px;
       margin-top: 0;
       margin-bottom: 0;
-      min-height: 100%;
     }
     
     .mob-hide{
