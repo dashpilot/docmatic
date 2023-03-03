@@ -114,7 +114,9 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li><a class="dropdown-item" on:click={()=>changeStyle('Forma')}>Forma</a></li>
+        <li><a class="dropdown-item" on:click={()=>changeStyle('Playfair')}>Playfair</a></li>
         <li><a class="dropdown-item" on:click={()=>changeStyle('Garomond')}>Garomond</a></li>
+       
         
       </ul>
     </span>
