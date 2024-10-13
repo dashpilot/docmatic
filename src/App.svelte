@@ -77,9 +77,17 @@
     newItem.id = Date.now();
     newItem.type=type;
     newItem.value="";
+    newItem.value2="";
+    newItem.value3="";
     items.push(newItem);
     items = items;
     init()
+  }
+
+  function removeItem(id){
+    if(confirm("Are you sure you wish to delete this item?")){
+      items = items.filter(item => item.id !== id);
+    }
   }
   
   function onChange() {
@@ -144,12 +152,28 @@
     <div class="row">
       <div class="col-1">
         <i class="fa-solid fa-grip-vertical handle"></i>
+        <div></div>
+        <i class="fa-solid fa-trash" on:click={()=> removeItem(item.id)}></i>
       </div>
       <div class="col-11">
-        <div class="edit {item.type}" id="item-{item.id}">{@html item.value}</div>
+
+{#if item.type=='title' || item.type=='subtitle' || item.type=='paragraph'}
+<div class="edit {item.type}" id="item-{item.id}">{@html item.value}</div>
+{/if}
+
+{#if item.type=='two-col'}
+<div class="row">
+  <div class="col-md-6 edit {item.type}" id="item-{item.id}">{@html item.value}</div>
+  <div class="col-md-6 edit {item.type}" id="item-{item.id}-2">{@html item.value2}</div>
+</div>
+{/if}
+
+       
       </div>
     </div>
   </div>
+
+
   </Sortable>
 
   <div class="row">
@@ -166,6 +190,7 @@
             <li><a class="dropdown-item" on:click={()=>addItem('title')}>Title</a></li>
             <li><a class="dropdown-item" on:click={()=>addItem('subtitle')}>Subtitle</a></li>
             <li><a class="dropdown-item" on:click={()=>addItem('paragraph')}>Paragraph</a></li>
+            <li><a class="dropdown-item" on:click={()=>addItem('two-col')}>Two Columns</a></li>
           </ul>
       </span>
       

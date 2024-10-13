@@ -1,22 +1,23 @@
 .title,
 .subtitle {
-  color: #000;
-  font-family: adobe-garamond-pro, Adobe Garamond Pro, garamond, Times, serif;
-  font-size: 38px;
-  font-weight: 600;
-  line-height: 44px;
-  letter-spacing: 0.03em;
+    color: #000;
+    font-family: adobe-garamond-pro, Adobe Garamond Pro, garamond, Times, serif;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 44px;
+    letter-spacing: 0.03em;
 }
 
 .subtitle {
-  font-weight: 400;
-  font-size: 26px;
-  line-height: 1.3em;
-  letter-spacing: 0em;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.3em;
+    letter-spacing: 0em;
 }
 
-.paragraph {
-  font-family: adobe-garamond-pro, Adobe Garamond Pro, garamond, Times, serif;
-  font-size: 22px;
-  line-height: 1.4em;
+.paragraph,
+.two-col {
+    font-family: adobe-garamond-pro, Adobe Garamond Pro, garamond, Times, serif;
+    font-size: 22px;
+    line-height: 1.4em;
 }
