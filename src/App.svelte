@@ -2,9 +2,7 @@
   import { onMount, tick } from 'svelte';
   import Sortable from "svelte-sortable"
 
-  import { account } from './lib/appwrite';
-  
-  
+  import {account} from "./lib/appwrite"
   import Appwrite from "./lib/Appwrite.svelte"
   let showModal = false;
   
@@ -38,8 +36,7 @@
     init();
 
  
-    user = await account.get();
-    console.log(user)
+
 
   
   /*
@@ -147,14 +144,12 @@
   
     <button class="btn btn-outline-dark" on:click={()=>showModal=true}>Sign In</button>
 
-    <Appwrite bind:showModal />
-
     {:else}
     <button class="btn btn-outline-dark" on:click={save}>Save</button>
     <button class="btn btn-outline-dark" on:click={logout}><i class="fas fa-sign-out"></i></button>
     {/if}
 
-
+    <Appwrite bind:showModal bind:user />
 
 
   </div>
