@@ -1,8 +1,11 @@
 <script>
   import { onMount, tick } from 'svelte';
   import Sortable from "svelte-sortable"
+
+  import { account } from './lib/appwrite';
   
-  import Userbase from "./lib/Userbase.svelte"
+  
+  import Appwrite from "./lib/Appwrite.svelte"
   let showModal = false;
   
   let editor;
@@ -32,23 +35,28 @@
 
   onMount(async () => {
   
-  init();
+    init();
+
+ 
+    user = await account.get();
+    console.log(user)
+
   
+  /*
     userbase.init({ appId: '896a0bf8-bab5-4325-93f0-566423bf201c' })
     .then((session) => {
       console.log(session.user)
       user = session.user;
     })
     .catch(() => user = false)
+    */
    
   });
   
-  function signOut(){
-    
-    userbase.signOut()
-      .then(() => user = false)
-      .catch((e) => alert(e))
-  }
+  async function logout() {
+        await account.deleteSession('current');
+        user = false;
+    }
   
   async function init(){
     await tick();
@@ -95,10 +103,12 @@
       console.log(items)
   }
   
+  /*
   function account(mymode){
     mode = mymode;
     showModal=true;
   }
+    */
   
   function save(){
     alert('coming soon')
@@ -127,16 +137,26 @@
 
   <div class="col-5 text-end">
     
- 
-    {#if !user}
 
   
-    <button class="btn btn-outline-dark" on:click={()=>account('signin')}>Sign In</button>
+  
+ 
+ 
+
+    {#if !user}
+  
+    <button class="btn btn-outline-dark" on:click={()=>showModal=true}>Sign In</button>
+
+    <Appwrite bind:showModal />
 
     {:else}
     <button class="btn btn-outline-dark" on:click={save}>Save</button>
-    <button class="btn btn-outline-dark" on:click={signOut}><i class="fas fa-sign-out"></i></button>
+    <button class="btn btn-outline-dark" on:click={logout}><i class="fas fa-sign-out"></i></button>
     {/if}
+
+
+
+
   </div>
 </div>
 </nav>
@@ -203,9 +223,6 @@
 
 </div>
 
-{#if showModal}
-<Userbase bind:showModal bind:mode bind:user />
-{/if}
 
 
 <style>

@@ -16,6 +16,7 @@
     "vite": "^4.1.0"
   },
   "dependencies": {
+    "appwrite": "^14.0.1",
     "svelte-sortable": "^0.1.0"
   }
 }
