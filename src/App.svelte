@@ -9,6 +9,7 @@
   let editor;
   let handle = ".handle"
   let darkmode = true;
+  let loading = false;
   
   let mode = 'signup';
   let user = false;
@@ -107,9 +108,44 @@
   }
     */
   
-  function save(){
-    alert('coming soon')
-  }
+async function save() {
+
+  loading = true;
+
+  let myitems = [];
+
+  let i = 0;
+  document.querySelectorAll('.edit').forEach((item)=>{
+    myitems[i] = {};
+    myitems[i].id = item.getAttribute("data-id");
+    myitems[i].type = item.getAttribute("data-type");
+    myitems[i].value = item.innerHTML;
+    i++;
+  })
+
+  console.log(myitems);
+
+    let jwt = await account.createJWT();
+
+    // Send the JWT to your PHP backend as a Bearer token
+    fetch('https://docmatic.bbapi.nl', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwt.jwt}`
+        },
+        body: JSON.stringify({ items: myitems })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        loading = false;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        loading = false;
+    });
+}
 </script>
 
 <nav>
@@ -133,19 +169,25 @@
 </div>
 
   <div class="col-5 text-end">
-    
 
-  
-  
- 
- 
 
     {#if !user}
   
     <button class="btn btn-outline-dark" on:click={()=>showModal=true}>Sign In</button>
 
     {:else}
-    <button class="btn btn-outline-dark" on:click={save}>Save</button>
+    <button class="btn btn-outline-dark" on:click={save}>
+      
+      
+      {#if loading}
+      <div class="spinner-border spinner-border-sm" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        {:else}
+        Save
+        {/if}
+      
+     </button>
     <button class="btn btn-outline-dark" on:click={logout}><i class="fas fa-sign-out"></i></button>
     {/if}
 
@@ -173,13 +215,13 @@
       <div class="col-11">
 
 {#if item.type=='title' || item.type=='subtitle' || item.type=='paragraph'}
-<div class="edit {item.type}" id="item-{item.id}">{@html item.value}</div>
+<div class="edit {item.type}" id="item-{item.id}" data-id="{item.id}" data-type="{item.type}">{@html item.value}</div>
 {/if}
 
 {#if item.type=='two-col'}
 <div class="row">
-  <div class="col-md-6 edit {item.type}" id="item-{item.id}">{@html item.value}</div>
-  <div class="col-md-6 edit {item.type}" id="item-{item.id}-2">{@html item.value2}</div>
+  <div class="col-md-6 edit {item.type}" id="item-{item.id}" data-id="{item.id}" data-type="{item.type}">{@html item.value}</div>
+  <div class="col-md-6 edit {item.type}" id="item-{item.id}-2"  data-id="{item.id}-2" data-type="{item.type}">{@html item.value2}</div>
 </div>
 {/if}
 
