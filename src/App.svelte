@@ -128,13 +128,13 @@ async function save() {
     let jwt = await account.createJWT();
 
     // Send the JWT to your PHP backend as a Bearer token
-    fetch('https://docmatic.bbapi.nl', {
+    fetch('https://appwrite.bbapi.nl', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwt.jwt}`
         },
-        body: JSON.stringify({ items: myitems })
+        body: JSON.stringify({ project: "670b190a002fcce62476", data: myitems })
     })
     .then(response => response.json())
     .then(data => {
